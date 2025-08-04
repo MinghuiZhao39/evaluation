@@ -1,0 +1,3 @@
+#utterances: 95
+Average: 5.8989 ± 0.5063#utterances: 95
+Average: 0.3385 ± 0.0766
