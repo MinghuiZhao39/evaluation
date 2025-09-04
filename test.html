@@ -1,0 +1,367 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      body {
+        font-family: sans-serif;
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      .page { display: none; }
+      .page.active { display: block; }
+      .step-content {
+        display: flex;
+        gap: 30px;
+        align-items: flex-start;
+        margin-top: 20px;
+      }
+      .audio-section {
+        flex: 0 0 300px;
+        display: flex;
+        flex-direction: column;
+      }
+      .rating-section {
+        flex: 1;
+      }
+      .step-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        float: right;
+        clear: both;
+      }
+      .center-button {
+        margin-top: 20px;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        background: #007cba;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .center-button:hover {
+        background: #005a87;
+      }
+      .rating-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .rating-button {
+        padding: 12px 16px;
+        font-size: 1rem;
+        border: 2px solid #ddd;
+        background: white;
+        cursor: pointer;
+        text-align: left;
+        border-radius: 4px;
+        transition: all 0.2s;
+      }
+      .rating-button:hover {
+        border-color: #007cba;
+        background: #f0f8ff;
+      }
+      .rating-button.selected {
+        border-color: #007cba;
+        background: #007cba;
+        color: white;
+      }
+      audio {
+        width: 100%;
+        margin-top: 15px;
+      }
+      .top-instructions {
+        background: #fafafa;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-size: 0.9rem;
+      }
+      .top-instructions-header {
+        cursor: pointer;
+        font-weight: normal;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666;
+        font-size: 0.85rem;
+      }
+      .top-instructions-header:hover {
+        color: #333;
+      }
+      .top-instructions-content {
+        display: none;
+        margin-top: 8px;
+        color: #555;
+        font-size: 0.85rem;
+      }
+      .top-instructions-content.show {
+        display: block;
+      }
+      .top-instructions-content ul {
+        margin: 8px 0;
+        padding-left: 18px;
+      }
+      .top-instructions-content li {
+        margin-bottom: 4px;
+      }
+      .toggle-icon {
+        font-size: 0.7em;
+        transition: transform 0.2s;
+        color: #999;
+      }
+      .toggle-icon.rotated {
+        transform: rotate(90deg);
+      }
+      .audio-label {
+        font-weight: bold;
+        color: #333;
+      }
+      .greeting-content, .thankyou-content {
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .greeting-content h1, .thankyou-content h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .greeting-content p, .thankyou-content p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        color: #555;
+      }
+      @media (max-width: 768px) {
+        .step-content {
+          flex-direction: column;
+        }
+        .audio-section {
+          flex: none;
+          width: 100%;
+        }
+        .step-button {
+          float: none;
+          width: 100%;
+        }
+      }
+    </style>
+    <script>
+      const totalSteps = 5;
+      const audioUrls = [
+        "${audio_url_1}",
+        "${audio_url_2}",
+        "${audio_url_3}",
+        "${audio_url_4}",
+        "${audio_url_5}"
+      ];
+
+      let currentStep = 1;
+      let selectedRatings = {};
+
+      function showPage(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+          page.classList.remove('active');
+        });
+        
+        // Show target page
+        document.getElementById(pageId).classList.add('active');
+      }
+
+      function startTask() {
+        showPage('step-' + currentStep);
+      }
+
+      function toggleTopInstructions() {
+        const content = document.getElementById('top-instructions-content');
+        const icon = document.getElementById('top-toggle-icon');
+        
+        if (content.classList.contains('show')) {
+          content.classList.remove('show');
+          icon.classList.remove('rotated');
+        } else {
+          content.classList.add('show');
+          icon.classList.add('rotated');
+        }
+      }
+
+      function selectRating(stepNum, value, buttonElement) {
+        // Remove selected class from all buttons in this step
+        const buttons = buttonElement.parentElement.querySelectorAll('.rating-button');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        
+        // Add selected class to clicked button
+        buttonElement.classList.add('selected');
+        
+        // Store the selected value
+        selectedRatings['audio_naturalness_' + stepNum] = value;
+      }
+
+      function nextStep() {
+        // Check if a rating is selected for current step
+        const currentRating = selectedRatings['audio_naturalness_' + currentStep];
+        if (!currentRating) {
+          alert('Please select a rating before proceeding.');
+          return;
+        }
+
+        currentStep++;
+        if (currentStep <= totalSteps) {
+          showPage('step-' + currentStep);
+        }
+      }
+
+      function submitForm() {
+        // Check if a rating is selected for current step
+        const currentRating = selectedRatings['audio_naturalness_' + currentStep];
+        if (!currentRating) {
+          alert('Please select a rating before proceeding.');
+          return;
+        }
+
+        // Check if all ratings are selected
+        for (let i = 1; i <= totalSteps; i++) {
+          if (!selectedRatings['audio_naturalness_' + i]) {
+            alert('Please complete all ratings before submitting.');
+            return;
+          }
+        }
+
+        // Add hidden inputs for each rating
+        const form = document.forms.mturk_form;
+        for (const [name, value] of Object.entries(selectedRatings)) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = name;
+          input.value = value;
+          form.appendChild(input);
+        }
+
+        // Show thank you page
+        showPage('thankyou');
+      }
+
+      function finalSubmit() {
+        document.forms.mturk_form.submit();
+      }
+
+      function buildSteps() {
+        const container = document.getElementById("steps-container");
+
+        for (let i = 0; i < totalSteps; i++) {
+          const stepDiv = document.createElement("div");
+          stepDiv.className = "page";
+          stepDiv.id = `step-${i + 1}`;
+
+          const stepNum = i + 1;
+          const audioUrl = audioUrls[i];
+          const isLast = i === totalSteps - 1;
+
+          stepDiv.innerHTML = `
+            <div class="top-instructions">
+              <div class="top-instructions-header" onclick="toggleTopInstructions()">
+                <span class="toggle-icon" id="top-toggle-icon-` + stepNum + `">▶</span>
+                <span>View detailed instructions</span>
+              </div>
+              <div class="top-instructions-content" id="top-instructions-content-` + stepNum + `">
+                <p>Listen to the sample of computer-generated speech and assess the quality based on how close it is to natural speech.</p>
+                <p>Use the scale consistently. Wear headphones and work in a quiet environment for best results.</p>
+                <ul>
+                  <li><strong>Excellent</strong> - Completely natural speech (audio sample 1)</li>
+                  <li><strong>Good</strong> - Mostly natural speech (audio sample 2)</li>
+                  <li><strong>Fair</strong> - Equally natural and unnatural speech (audio sample 3)</li>
+                  <li><strong>Poor</strong> - Mostly unnatural speech (audio sample 4)</li>
+                  <li><strong>Bad</strong> - Completely unnatural speech (audio sample 5)</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>How natural (i.e. human-sounding) is this recording?</h3>
+            
+            <div class="step-content">
+              <div class="audio-section">
+                <div class="audio-label">Audio Sample ` + stepNum + `:</div>
+                <audio controls>
+                  <source src="` + audioUrl + `" type="audio/mpeg" />
+                  Your browser does not support audio playback.
+                </audio>
+              </div>
+              
+              <div class="rating-section">
+                <p><strong>Select a rating:</strong></p>
+                <div class="rating-buttons">
+                  <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Excellent', this)">
+                    <strong>Excellent</strong> - Completely natural speech
+                  </button>
+                  <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Good', this)">
+                    <strong>Good</strong> - Mostly natural speech
+                  </button>
+                  <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Fair', this)">
+                    <strong>Fair</strong> - Equally natural and unnatural speech
+                  </button>
+                  <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Poor', this)">
+                    <strong>Poor</strong> - Mostly unnatural speech
+                  </button>
+                  <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Bad', this)">
+                    <strong>Bad</strong> - Completely unnatural speech
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            ` + (isLast
+              ? '<button type="button" onclick="submitForm()" class="step-button">Finish</button>'
+              : '<button type="button" onclick="nextStep()" class="step-button">Next</button>') + `
+          `;
+
+          container.appendChild(stepDiv);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        buildSteps();
+        showPage('greeting');
+      });
+    </script>
+  </head>
+
+  <body>
+    <form name="mturk_form" method="post" action="https://www.mturk.com/mturk/externalSubmit">
+      <input type="hidden" name="assignmentId" value="${assignmentId}" />
+      
+      <!-- Greeting Page -->
+      <div id="greeting" class="page active">
+        <div class="greeting-content">
+          <h1>Welcome to the Speech Quality Assessment Task</h1>
+          <p>Thank you for participating in this study. You will be evaluating the naturalness of computer-generated speech samples.</p>
+          <p>This task involves listening to 5 audio samples and rating how natural each one sounds.</p>
+          <p>The entire task should take approximately 5-10 minutes to complete.</p>
+          <p><strong>Please ensure you have headphones and are in a quiet environment before starting.</strong></p>
+          <button type="button" onclick="startTask()" class="center-button">Start Task</button>
+        </div>
+      </div>
+
+      <!-- Steps will be built here -->
+      <div id="steps-container"></div>
+
+      <!-- Thank You Page -->
+      <div id="thankyou" class="page">
+        <div class="thankyou-content">
+          <h1>Thank You!</h1>
+          <p>You have successfully completed the speech quality assessment task.</p>
+          <p>Your responses have been recorded and will help improve speech synthesis technology.</p>
+          <p>Click the button below to submit your work and receive payment.</p>
+          <button type="button" onclick="finalSubmit()" class="center-button">Submit HIT</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
