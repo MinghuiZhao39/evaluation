@@ -17,12 +17,13 @@
         margin-top: 20px;
       }
       .audio-section {
-        flex: 0 0 300px;
+        flex: 0 0 450px;
         display: flex;
         flex-direction: column;
       }
       .rating-section {
         flex: 1;
+        max-width: 400px;
       }
       .step-button {
         margin-top: 20px;
@@ -166,6 +167,36 @@
       let currentStep = 1;
       let selectedRatings = {};
 
+      // Get assignment ID from URL parameters
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+      }
+
+      // Set assignment ID when page loads
+      function initializeAssignmentId() {
+        const assignmentId = getUrlParameter('assignmentId');
+        console.log('Assignment ID:', assignmentId);
+        console.log('Current URL:', window.location.href);
+        
+        if (assignmentId) {
+          document.querySelector('input[name="assignmentId"]').value = assignmentId;
+        } else {
+          console.warn('No assignmentId found in URL parameters');
+          // For testing purposes, you can uncomment the line below:
+          // document.querySelector('input[name="assignmentId"]').value = 'TEST_ASSIGNMENT_ID';
+          
+          // Show warning to user if no assignment ID
+          if (!assignmentId && window.location.search.indexOf('assignmentId') === -1) {
+            console.error('WARNING: This page must be accessed through MTurk with an assignmentId parameter');
+            // Optionally show an alert for testing
+            // alert('WARNING: No assignment ID found. This page must be accessed through MTurk.');
+          }
+        }
+      }
+
       function showPage(pageId) {
         // Hide all pages
         document.querySelectorAll('.page').forEach(page => {
@@ -180,9 +211,9 @@
         showPage('step-' + currentStep);
       }
 
-      function toggleTopInstructions() {
-        const content = document.getElementById('top-instructions-content');
-        const icon = document.getElementById('top-toggle-icon');
+      function toggleTopInstructions(stepNum) {
+        const content = document.getElementById('top-instructions-content-' + stepNum);
+        const icon = document.getElementById('top-toggle-icon-' + stepNum);
         
         if (content.classList.contains('show')) {
           content.classList.remove('show');
@@ -235,6 +266,14 @@
           }
         }
 
+        // Check assignment ID
+        const assignmentId = document.querySelector('input[name="assignmentId"]').value;
+        if (!assignmentId) {
+          alert('Error: No assignment ID found. This HIT must be accessed through MTurk.');
+          console.error('Cannot submit without assignment ID');
+          return;
+        }
+
         // Add hidden inputs for each rating
         const form = document.forms.mturk_form;
         for (const [name, value] of Object.entries(selectedRatings)) {
@@ -245,7 +284,18 @@
           form.appendChild(input);
         }
 
-        // Show thank you page
+        // Debug: Log form data before submission
+        console.log('Submitting ratings:', selectedRatings);
+        console.log('Assignment ID:', assignmentId);
+        console.log('Form action:', form.action);
+        
+        const formData = new FormData(form);
+        console.log('All form data:');
+        for (let [key, value] of formData.entries()) {
+          console.log(key + ': ' + value);
+        }
+
+        // Show thank you page instead of submitting immediately
         showPage('thankyou');
       }
 
@@ -267,7 +317,7 @@
 
           stepDiv.innerHTML = `
             <div class="top-instructions">
-              <div class="top-instructions-header" onclick="toggleTopInstructions()">
+              <div class="top-instructions-header" onclick="toggleTopInstructions(` + stepNum + `)">
                 <span class="toggle-icon" id="top-toggle-icon-` + stepNum + `">▶</span>
                 <span>View detailed instructions</span>
               </div>
@@ -318,7 +368,7 @@
             </div>
 
             ` + (isLast
-              ? '<button type="button" onclick="submitForm()" class="step-button">Finish</button>'
+              ? '<button type="button" onclick="submitForm()" class="step-button">Submit to MTurk</button>'
               : '<button type="button" onclick="nextStep()" class="step-button">Next</button>') + `
           `;
 
@@ -327,6 +377,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", function() {
+        initializeAssignmentId();
         buildSteps();
         showPage('greeting');
       });
@@ -334,8 +385,8 @@
   </head>
 
   <body>
-    <form name="mturk_form" method="post" action="https://www.mturk.com/mturk/externalSubmit">
-      <input type="hidden" name="assignmentId" value="${assignmentId}" />
+    <form name="mturk_form" method="post" action="https://workersandbox.mturk.com/mturk/externalSubmit">
+      <input type="hidden" name="assignmentId" value="" />
       
       <!-- Greeting Page -->
       <div id="greeting" class="page active">
