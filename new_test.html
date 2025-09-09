@@ -101,7 +101,7 @@
         display: block;
         margin-top: 8px;
         color: #555;
-        font-size: 0.85rem;
+        font-size: 1rem;
       }
       .top-instructions-content.show {
         display: block;
@@ -324,12 +324,13 @@
                 <p>Listen to the sample of computer-generated speech and assess the quality based on how close it is to natural speech.</p>
                 <p>Use the scale consistently. Wear headphones and work in a quiet environment for best results.</p>
                 <ul>
-                  <li><strong>Excellent</strong> - Completely natural speech that is indistinguishable from real human speech, with no detectable synthetic elements</li>
-                  <li><strong>Good</strong> - Mostly natural speech, with only minor imperfections such as subtle prosodic or acoustic inconsistencies</li>
-                  <li><strong>Fair</strong> - Equally natural and unnatural speech, which may be acceptable overall but has noticeable flaws</li>
-                  <li><strong>Poor</strong> - Mostly unnatural speech that is intelligible but clearly synthetic, often due to issues in rhythm, intonation or clarity</li>
-                  <li><strong>Bad</strong> - Completely unnatural speech that sounds robotic, distorted and/or significantly artificial</li>
+                  <li><strong>5 Excellent</strong> - Completely natural speech that is indistinguishable from real human speech. Minor audible distortions (e.g., slight background noise or subtle artifacts) may be present but do not reduce its naturalness.</li>
+                  <li><strong>4 Good</strong> - Mostly natural speech, with only minor imperfections such as subtle prosodic or acoustic inconsistencies that slightly affect the natualness</li>
+                  <li><strong>3 Fair</strong> - Equally natural and unnatural speech, which may be acceptable overall but has noticeable flaws</li>
+                  <li><strong>2 Poor</strong> - Mostly unnatural speech that is intelligible but clearly synthetic, often due to issues in rhythm, intonation or clarity</li>
+                  <li><strong>1 Bad</strong> - Completely unnatural speech that sounds robotic, distorted and/or significantly artificial</li>
                 </ul>
+                <!--<p>When deciding between the top ratings, please keep in mind: if a sample sounds completely natural overall, even if there are very minor distortions (such as slight background noise or subtle acoustic artifacts), it may still deserve a higher rating. Reserve lower scores only when the distortions noticeably reduce the naturalness.</p> -->
               </div>
             </div>
 
@@ -345,22 +346,22 @@
               </div>
               
               <div class="rating-section">
-                <p><strong>Select a rating:</strong></p>
+                <p><strong>Please select a rating after listening to the whole audio:</strong></p>
                 <div class="rating-buttons">
                   <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Excellent', this)">
-                    <strong>Excellent</strong> - Completely natural speech
+                    <strong>5 Excellent</strong> - Completely natural speech
                   </button>
                   <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Good', this)">
-                    <strong>Good</strong> - Mostly natural speech
+                    <strong>4 Good</strong> - Mostly natural speech
                   </button>
                   <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Fair', this)">
-                    <strong>Fair</strong> - Equally natural and unnatural speech
+                    <strong>3 Fair</strong> - Equally natural and unnatural speech
                   </button>
                   <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Poor', this)">
-                    <strong>Poor</strong> - Mostly unnatural speech
+                    <strong>2 Poor</strong> - Mostly unnatural speech
                   </button>
                   <button type="button" class="rating-button" onclick="selectRating(` + stepNum + `, 'Bad', this)">
-                    <strong>Bad</strong> - Completely unnatural speech
+                    <strong>1 Bad</strong> - Completely unnatural speech
                   </button>
                 </div>
               </div>
@@ -398,10 +399,12 @@
             Before you begin, please read the 
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUcI7D4X-QI1dWBZRcLInNwSfpxqBwEKZZQBkgbyWxiFzM3g/viewform?usp=dialog" target="_blank">
               participant information sheet and consent form
-            </a>. You will be asked to provide your consent <strong>there</strong>.
+            </a>. You will be asked to provide your consent in the Google Form.
           </p>
           <p>Please ensure you have headphones and are in a quiet environment before starting.</p>
-          <p><strong>Important:</strong> Please click <em>“Start Task”</em> only after you have provided consent in the linked Google Form.</p>
+          <p>
+            <span style="color: red; font-weight: bold;">Important: Please click <em>“Start Task”</em> only after you have provided consent in the linked Google Form.</span>
+          </p>
           <button type="button" onclick="startTask()" class="center-button">Start Task</button>
         </div>
       </div>
