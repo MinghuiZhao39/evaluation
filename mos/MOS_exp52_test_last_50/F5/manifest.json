@@ -1,0 +1,85 @@
+{
+  "source": "Models/MOS_exp52_test_last",
+  "selection_source_folder": "Models/MOS_exp52_test_last/dt100_l1",
+  "selection_rule": "lexicographically first 10 wav filenames per emotion from selection_source_folder",
+  "emotions": [
+    "Angry",
+    "Happy",
+    "Neutral",
+    "Sad",
+    "Surprise"
+  ],
+  "files_by_emotion": {
+    "Angry": [
+      "speaker0000__test_ESD_0011_Angry_0011_000447__ref_ESD_0011_Angry_0011_000628.wav",
+      "speaker0000__test_ESD_0011_Angry_0011_000560__ref_ESD_0011_Angry_0011_000589.wav",
+      "speaker0000__test_ESD_0011_Angry_0011_000592__ref_ESD_0011_Angry_0011_000472.wav",
+      "speaker0000__test_ESD_0011_Angry_0011_000700__ref_ESD_0011_Angry_0011_000366.wav",
+      "speaker0001__test_ESD_0012_Angry_0012_000381__ref_ESD_0012_Angry_0012_000444.wav",
+      "speaker0002__test_ESD_0013_Angry_0013_000381__ref_ESD_0013_Angry_0013_000444.wav",
+      "speaker0003__test_ESD_0014_Angry_0014_000381__ref_ESD_0014_Angry_0014_000444.wav",
+      "speaker0003__test_ESD_0014_Angry_0014_000530__ref_ESD_0014_Angry_0014_000635.wav",
+      "speaker0004__test_ESD_0015_Angry_0015_000433__ref_ESD_0015_Angry_0015_000360.wav",
+      "speaker0005__test_ESD_0016_Angry_0016_000433__ref_ESD_0016_Angry_0016_000360.wav"
+    ],
+    "Happy": [
+      "speaker0000__test_ESD_0011_Happy_0011_001050__ref_ESD_0011_Happy_0011_000716.wav",
+      "speaker0001__test_ESD_0012_Happy_0012_000908__ref_ESD_0012_Happy_0012_000855.wav",
+      "speaker0001__test_ESD_0012_Happy_0012_000942__ref_ESD_0012_Happy_0012_000822.wav",
+      "speaker0002__test_ESD_0013_Happy_0013_000741__ref_ESD_0013_Happy_0013_000947.wav",
+      "speaker0003__test_ESD_0014_Happy_0014_000910__ref_ESD_0014_Happy_0014_000939.wav",
+      "speaker0004__test_ESD_0015_Happy_0015_000865__ref_ESD_0015_Happy_0015_000964.wav",
+      "speaker0004__test_ESD_0015_Happy_0015_000932__ref_ESD_0015_Happy_0015_000733.wav",
+      "speaker0004__test_ESD_0015_Happy_0015_000963__ref_ESD_0015_Happy_0015_000736.wav",
+      "speaker0004__test_ESD_0015_Happy_0015_001050__ref_ESD_0015_Happy_0015_000716.wav",
+      "speaker0005__test_ESD_0016_Happy_0016_000789__ref_ESD_0016_Happy_0016_000724.wav"
+    ],
+    "Neutral": [
+      "speaker0000__test_ESD_0011_Neutral_0011_000027__ref_ESD_0011_Neutral_0011_000258.wav",
+      "speaker0000__test_ESD_0011_Neutral_0011_000032__ref_ESD_0011_Neutral_0011_000320.wav",
+      "speaker0000__test_ESD_0011_Neutral_0011_000097__ref_ESD_0011_Neutral_0011_000278.wav",
+      "speaker0000__test_ESD_0011_Neutral_0011_000125__ref_ESD_0011_Neutral_0011_000034.wav",
+      "speaker0000__test_ESD_0011_Neutral_0011_000292__ref_ESD_0011_Neutral_0011_000323.wav",
+      "speaker0001__test_ESD_0012_Neutral_0012_000048__ref_ESD_0012_Neutral_0012_000316.wav",
+      "speaker0001__test_ESD_0012_Neutral_0012_000216__ref_ESD_0012_Neutral_0012_000128.wav",
+      "speaker0002__test_ESD_0013_Neutral_0013_000152__ref_ESD_0013_Neutral_0013_000178.wav",
+      "speaker0002__test_ESD_0013_Neutral_0013_000225__ref_ESD_0013_Neutral_0013_000339.wav",
+      "speaker0003__test_ESD_0014_Neutral_0014_000107__ref_ESD_0014_Neutral_0014_000238.wav"
+    ],
+    "Sad": [
+      "speaker0001__test_ESD_0012_Sad_0012_001199__ref_ESD_0012_Sad_0012_001391.wav",
+      "speaker0002__test_ESD_0013_Sad_0013_001121__ref_ESD_0013_Sad_0013_001382.wav",
+      "speaker0002__test_ESD_0013_Sad_0013_001147__ref_ESD_0013_Sad_0013_001328.wav",
+      "speaker0002__test_ESD_0013_Sad_0013_001215__ref_ESD_0013_Sad_0013_001314.wav",
+      "speaker0002__test_ESD_0013_Sad_0013_001292__ref_ESD_0013_Sad_0013_001172.wav",
+      "speaker0003__test_ESD_0014_Sad_0014_001175__ref_ESD_0014_Sad_0014_001084.wav",
+      "speaker0003__test_ESD_0014_Sad_0014_001215__ref_ESD_0014_Sad_0014_001314.wav",
+      "speaker0003__test_ESD_0014_Sad_0014_001263__ref_ESD_0014_Sad_0014_001300.wav",
+      "speaker0004__test_ESD_0015_Sad_0015_001082__ref_ESD_0015_Sad_0015_001370.wav",
+      "speaker0004__test_ESD_0015_Sad_0015_001199__ref_ESD_0015_Sad_0015_001391.wav"
+    ],
+    "Surprise": [
+      "speaker0000__test_ESD_0011_Surprise_0011_001432__ref_ESD_0011_Surprise_0011_001720.wav",
+      "speaker0000__test_ESD_0011_Surprise_0011_001608__ref_ESD_0011_Surprise_0011_001555.wav",
+      "speaker0000__test_ESD_0011_Surprise_0011_001696__ref_ESD_0011_Surprise_0011_001633.wav",
+      "speaker0001__test_ESD_0012_Surprise_0012_001632__ref_ESD_0012_Surprise_0012_001433.wav",
+      "speaker0001__test_ESD_0012_Surprise_0012_001692__ref_ESD_0012_Surprise_0012_001723.wav",
+      "speaker0002__test_ESD_0013_Surprise_0013_001448__ref_ESD_0013_Surprise_0013_001716.wav",
+      "speaker0003__test_ESD_0014_Surprise_0014_001488__ref_ESD_0014_Surprise_0014_001409.wav",
+      "speaker0003__test_ESD_0014_Surprise_0014_001569__ref_ESD_0014_Surprise_0014_001708.wav",
+      "speaker0003__test_ESD_0014_Surprise_0014_001604__ref_ESD_0014_Surprise_0014_001661.wav",
+      "speaker0003__test_ESD_0014_Surprise_0014_001608__ref_ESD_0014_Surprise_0014_001555.wav"
+    ]
+  },
+  "folders": [
+    "ESD_large_slm",
+    "F5",
+    "LibriTTS",
+    "dt050_l1",
+    "dt050_l2",
+    "dt100_l1",
+    "dt100_l2",
+    "ground_truth",
+    "reference"
+  ]
+}
