@@ -1,0 +1,33 @@
+TTS evaluation results
+timestamp_utc: 2026-06-16T07:45:29.041397+00:00
+samples_dir: /exp/exp4/acq22mc/StyleTTS2/Models/exp52_unidigpu/dt050/samples_test_mini
+split: test
+ground_truth_dir: /exp/exp4/acq22mc/StyleTTS2/Models/ground_truth_samples_test
+root_path: /store/store4/data
+artifacts:
+  /exp/exp4/acq22mc/StyleTTS2/Models/exp52_unidigpu/dt050/samples_test_mini/eval_tts_utt2mcd.log
+  /exp/exp4/acq22mc/StyleTTS2/Models/exp52_unidigpu/dt050/samples_test_mini/eval_tts_mcd_summary.txt
+  /exp/exp4/acq22mc/StyleTTS2/Models/exp52_unidigpu/dt050/samples_test_mini/eval_tts_utt2log_f0_rmse
+  /exp/exp4/acq22mc/StyleTTS2/Models/exp52_unidigpu/dt050/samples_test_mini/eval_tts_log_f0_rmse_summary.txt
+
+[mcd]
+returncode: 0
+command: /exp/exp4/acq22mc/StyleTTS2/.venv/bin/python /exp/exp4/acq22mc/StyleTTS2/Utils/Eval/evaluate_mcd.py /tmp/eval_tts_vnvxg8lf/ground_truth /tmp/eval_tts_vnvxg8lf/generated --nj 8
+/exp/exp4/acq22mc/StyleTTS2/.venv/lib/python3.11/site-packages/pysptk/util.py:32: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+5.1509287601779885 +/- 0.967851127853158
+Top-3
+speaker0000__test_ESD_0011_Angry_0011_000447__ref_ESD_0011_Angry_0011_000628 6.882185092137216
+speaker0000__test_ESD_0011_Angry_0011_000560__ref_ESD_0011_Angry_0011_000589 5.185184213833654
+speaker0000__test_ESD_0011_Angry_0011_000592__ref_ESD_0011_Angry_0011_000472 6.084162196670825
+Bottom-3
+speaker0009__test_ESD_0020_Sad_0020_001263__ref_ESD_0020_Sad_0020_001300 3.8257286997521045
+speaker0009__test_ESD_0020_Sad_0020_001254__ref_ESD_0020_Sad_0020_001311 3.488760078231363
+speaker0009__test_ESD_0020_Neutral_0020_000232__ref_ESD_0020_Neutral_0020_000033 4.867280798636678
+5.1509 ± 0.9679
+
+[f0]
+returncode: 0
+command: /exp/exp4/acq22mc/StyleTTS2/.venv/bin/python /exp/exp4/acq22mc/StyleTTS2/Utils/Eval/evaluate_f0.py /tmp/eval_tts_vnvxg8lf/generated /tmp/eval_tts_vnvxg8lf/ground_truth --outdir /tmp/eval_tts_vnvxg8lf/generated --nj 8
+Average: 0.4033 ± 0.1345
+
